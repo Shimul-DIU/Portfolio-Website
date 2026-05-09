@@ -1,6 +1,6 @@
 import React from 'react'
 import Mainlayout from './Layouts/Mainlayout'
-import signUpWithGoogle from './firebase/auth/signUpWithGoogle'
+import signUpWithGoogle from './firebase/auth/SignUpWithGoogle'
 function App() {
 
   return (

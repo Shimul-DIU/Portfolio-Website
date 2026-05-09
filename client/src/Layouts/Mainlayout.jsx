@@ -2,14 +2,14 @@
 import Navbar from './../components/Navbar';
 import Footer from './../components/Footer';
 import { Outlet } from 'react-router-dom';
-import signUpWithGoogle from '../firebase/auth/signUpWithGoogle';
+import SignUpWithGoogle from '../firebase/auth/SignUpWithGoogle';
 
 const Mainlayout = () => {
     return (
         <div>
             <Navbar />
             <main>
-                <signUpWithGoogle></signUpWithGoogle>
+                <SignUpWithGoogle></SignUpWithGoogle>
                 <Outlet />
 
             </main>
