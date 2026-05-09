@@ -1,9 +1,11 @@
 import React from 'react'
 import Mainlayout from './Layouts/Mainlayout'
+import signUpWithGoogle from './firebase/auth/signUpWithGoogle'
 function App() {
 
   return (
     <>
+      <signUpWithGoogle></signUpWithGoogle>
       <Mainlayout ></Mainlayout>
       <h1 className="p-3">Welcome to My Portfolio</h1>
     </>
