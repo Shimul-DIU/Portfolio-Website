@@ -9,7 +9,7 @@ const Mainlayout = () => {
         <div>
             <Navbar />
             <main>
-                <SignUpWithGoogle></SignUpWithGoogle>
+                
                 <Outlet />
 
             </main>

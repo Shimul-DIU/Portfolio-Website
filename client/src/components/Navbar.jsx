@@ -1,93 +1,161 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import {
+  faBars,
+  faXmark,
+  faMagnifyingGlass,
+  faArrowLeft,
+} from '@fortawesome/free-solid-svg-icons';
+import { Link, useLocation } from 'react-router-dom';
 import logo from '../assets/images/icon.png';
 
-const Navbar = () => {
-  const [isopen, setIsOpen] = React.useState(false);
+const navLinks = [
+  { to: '/', label: 'Home' },
+  { to: '/about', label: 'About' },
+  { to: '/projects', label: 'Projects' },
+  { to: '/skills', label: 'Skills' },
+  { to: '/contact', label: 'Contact' },
+  { to: '/blog', label: 'Blog' },
+];
 
-  const handleLinkClick = () => {
-    setIsOpen(false);
+const Navbar = () => {
+  const [isopen, setIsOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const location = useLocation();
+
+  const handleLinkClick = () => setIsOpen(false);
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    console.log('Searching for:', searchQuery);
+    setSearchOpen(false);
   };
+
+const searchRingClasses =
+  'ring-1 ring-transparent hover:ring-white/70 focus-within:ring-2 focus-within:ring-white transition-all duration-200';;
 
   return (
     <>
-      <nav className="bg-white shadow-md sticky top-0 z-50">
+      <nav className="sticky top-0 z-50 bg-linear-to-bl from-[#CF15D4] to-[#7B14F9] shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-stretch h-16">
+          <div className="relative flex items-center h-16 gap-4 lg:gap-6">
+            {/* Logo */}
+            <Link to="/" className="flex items-center shrink-0 group">
+              <img
+                src={logo}
+                className="h-10 object-contain transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6"
+                alt="icon"
+              />
+            </Link>
 
-            {/* Logo / Brand */}
-            <div className="flex items-center basis-1/4">
-              <img src={logo} className='h-10 object-contain' alt="icon" />
-            </div>
+            {/* Spacer - absorbs freed space right after logo */}
+            <div className="hidden md:block flex-1" />
 
-            {/* Desktop Menu */}
-            <ul className="hidden  flex-1  md:flex  justify-around">
-              <li className="flex items-stretch">
-                <Link
-                  to="/"
-                  className="flex items-center px-4 text-gray-700 hover:text-blue-600 hover:bg-gray-100 border-b-2 border-transparent hover:border-blue-500 transition duration-200 font-medium"
-                >
-                  Home
-                </Link>
-              </li>
-              <li className="flex items-">
-                <Link
-                  to="/about"
-                  className="flex items-center px-4 text-gray-700 hover:text-blue-600 hover:bg-gray-100 border-b-2 border-transparent hover:border-blue-500 transition duration-200 font-medium"
-                >
-                  About
-                </Link>
-              </li>
-              <li className="flex items-stretch">
-                <Link
-                  to="/projects"
-                  className="flex items-center px-4 text-gray-700 hover:text-blue-600 hover:bg-gray-100 border-b-2 border-transparent hover:border-blue-500 transition duration-200 font-medium"
-                >
-                  Projects
-                </Link>
-              </li>
-              <li className="flex items-stretch">
-                <Link
-                  to="/skills"
-                  className="flex items-center px-4 text-gray-700 hover:text-blue-600 hover:bg-gray-100 border-b-2 border-transparent hover:border-blue-500 transition duration-200 font-medium"
-                >
-                  Skills
-                </Link>
-              </li>
-              <li className="flex items-stretch">
-                <Link
-                  to="/contact"
-                  className="flex items-center px-4 text-gray-700 hover:text-blue-600 hover:bg-gray-100 border-b-2 border-transparent hover:border-blue-500 transition duration-200 font-medium"
-                >
-                  Contact
-                </Link>
-              </li>
-              <li className="flex items-stretch">
-                <Link
-                  to="/blog"
-                  className="flex items-center px-4 text-gray-700 hover:text-blue-600 hover:bg-gray-100 border-b-2 border-transparent hover:border-blue-500 transition duration-200 font-medium"
-                >
-                  Blog
-                </Link>
-              </li>
+            {/* Search bar - smaller fixed width, responsive between breakpoints */}
+            <form
+              onSubmit={handleSearchSubmit}
+              className={`hidden md:flex items-center shrink-0 w-[clamp(220px,35vw,420px)] bg-white/15 rounded-full px-4 py-2 transition-all duration-300 ${searchRingClasses}`}
+            >
+              <FontAwesomeIcon
+                icon={faMagnifyingGlass}
+                className="text-white/80 text-sm mr-2 shrink-0"
+              />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search..."
+                className="w-full bg-transparent text-white placeholder-white/70 text-sm outline-none"
+              />
+            </form>
+
+            {/* Nav items - natural width, sits right after search bar */}
+            <ul className="hidden md:flex items-center gap-1 lg:gap-6 shrink-0">
+              {navLinks.map((link) => {
+                const isActive = location.pathname === link.to;
+                return (
+                  <li key={link.to} className="flex items-stretch group">
+                    <Link
+                      to={link.to}
+                      className={`relative flex items-center px-2 font-medium whitespace-nowrap transition-colors duration-200 ${
+                        isActive
+                          ? 'text-yellow-300'
+                          : 'text-white/90 hover:text-yellow-300'
+                      }`}
+                    >
+                      {link.label}
+                      <span
+                        className={`absolute left-2 right-2 -bottom-[1px] h-[2px] rounded-full bg-yellow-300 origin-left transition-transform duration-300 ${
+                          isActive
+                            ? 'scale-x-100'
+                            : 'scale-x-0 group-hover:scale-x-100'
+                        }`}
+                      />
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
 
-            {/* Desktop Resume Button + Mobile Menu Button */}
-            <div className="flex items-center gap-3">
-              <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-5 py-2 rounded-full font-medium hover:shadow-lg hover:scale-105 transition duration-200 text-sm md:text-base">
+            {/* Resume Button + Mobile Icons */}
+            <div className="flex items-center gap-3 shrink-0 ml-auto md:ml-0">
+              <button className="hidden md:inline-flex relative overflow-hidden bg-white text-[#7B14F9] px-5 py-2 rounded-full font-medium shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-200 text-sm">
                 Resume
+              </button>
+
+              {/* Mobile search toggle */}
+              <button
+                onClick={() => setSearchOpen(true)}
+                className="md:hidden text-white hover:text-yellow-300 focus:outline-none p-2 rounded-lg hover:bg-white/10 transition"
+                aria-label="Open search"
+              >
+                <FontAwesomeIcon icon={faMagnifyingGlass} className="text-xl" />
               </button>
 
               <button
                 onClick={() => setIsOpen(!isopen)}
-                className="md:hidden text-gray-700 hover:text-blue-600 focus:outline-none p-2 rounded-lg hover:bg-gray-100 transition"
+                className="md:hidden text-white hover:text-yellow-300 focus:outline-none p-2 rounded-lg hover:bg-white/10 transition"
                 aria-label="Toggle menu"
               >
-                <FontAwesomeIcon icon={isopen ? faXmark : faBars} className="text-2xl" />
+                <FontAwesomeIcon
+                  icon={isopen ? faXmark : faBars}
+                  className="text-2xl transition-transform duration-300"
+                  style={{ transform: isopen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                />
               </button>
             </div>
+
+            {/* Mobile Search Overlay */}
+            <form
+              onSubmit={handleSearchSubmit}
+              className={`md:hidden absolute inset-0 flex items-center gap-2 px-4 bg-linear-to-bl from-[#CF15D4] to-[#7B14F9] z-10 transition-all duration-300 ${
+                searchOpen
+                  ? 'opacity-100 visible'
+                  : 'opacity-0 invisible pointer-events-none'
+              }`}
+            >
+              <button
+                type="button"
+                onClick={() => setSearchOpen(false)}
+                className="flex items-center justify-center w-9 h-9 shrink-0 rounded-full bg-white/20 text-white hover:bg-white/30 active:scale-90 transition"
+                aria-label="Close search"
+              >
+                <FontAwesomeIcon icon={faArrowLeft} />
+              </button>
+              <div
+                className={`flex-1 flex items-center bg-white/15 rounded-full px-4 py-2 transition-all duration-300 ${searchRingClasses}`}
+              >
+                <input
+                  autoFocus
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search..."
+                  className="w-full bg-transparent text-white placeholder-white/70 text-sm outline-none"
+                />
+              </div>
+            </form>
           </div>
         </div>
 
@@ -98,64 +166,40 @@ const Navbar = () => {
           } overflow-hidden bg-white border-t border-gray-100 shadow-lg`}
         >
           <ul className="flex flex-col py-3 px-4 space-y-1">
-            <li>
-              <Link
-                to="/"
-                onClick={handleLinkClick}
-                className="block px-4 py-3 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition font-medium"
+            {navLinks.map((link, i) => (
+              <li
+                key={link.to}
+                className="transition-all duration-300"
+                style={{
+                  transitionDelay: isopen ? `${i * 60}ms` : '0ms',
+                  opacity: isopen ? 1 : 0,
+                  transform: isopen ? 'translateX(0)' : 'translateX(-12px)',
+                }}
               >
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/about"
-                onClick={handleLinkClick}
-                className="block px-4 py-3 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition font-medium"
-              >
-                About
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/projects"
-                onClick={handleLinkClick}
-                className="block px-4 py-3 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition font-medium"
-              >
-                Projects
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/skills"
-                onClick={handleLinkClick}
-                className="block px-4 py-3 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition font-medium"
-              >
-                Skills
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/contact"
-                onClick={handleLinkClick}
-                className="block px-4 py-3 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition font-medium"
-              >
-                Contact
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/blog"
-                onClick={handleLinkClick}
-                className="block px-4 py-3 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition font-medium"
-              >
-                Blog
-              </Link>
-            </li>
-            <li className="pt-2">
+                <Link
+                  to={link.to}
+                  onClick={handleLinkClick}
+                  className={`block px-4 py-3 rounded-lg font-medium transition ${
+                    location.pathname === link.to
+                      ? 'text-[#7B14F9] bg-purple-50'
+                      : 'text-gray-700 hover:text-[#7B14F9] hover:bg-gray-50'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+            <li
+              className="pt-2 transition-all duration-300"
+              style={{
+                transitionDelay: isopen ? `${navLinks.length * 60}ms` : '0ms',
+                opacity: isopen ? 1 : 0,
+                transform: isopen ? 'translateX(0)' : 'translateX(-12px)',
+              }}
+            >
               <button
                 onClick={handleLinkClick}
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-3 rounded-xl font-medium hover:shadow-md transition"
+                className="w-full bg-linear-to-bl from-[#CF15D4] to-[#7B14F9] text-white px-4 py-3 rounded-xl font-medium hover:shadow-md active:scale-95 transition"
               >
                 Resume
               </button>
