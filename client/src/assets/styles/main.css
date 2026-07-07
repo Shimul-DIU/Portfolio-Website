@@ -1,4 +1,5 @@
 @import "tailwindcss";
-body{
-    background-color: rgba(150, 148, 148, 0.379);
+:root {
+  --text-primary: black;
+  --text-secondary: rgba(32, 35, 209, 0.8);
 }
