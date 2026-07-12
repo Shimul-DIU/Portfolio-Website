@@ -7,7 +7,7 @@ import {
   faArrowLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { Link, useLocation } from 'react-router-dom';
-import logo from '../assets/images/icon.png';
+import logo from "../../public/images/icon.png";
 
 const navLinks = [
   { to: '/', label: 'Home' },

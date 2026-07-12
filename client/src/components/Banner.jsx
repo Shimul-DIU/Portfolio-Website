@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faDownload } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -6,153 +6,165 @@ import {
   faLinkedin,
   faFacebook,
 } from "@fortawesome/free-brands-svg-icons";
-import profileImg from "../assets/images/profile.png";
+import { TypeAnimation } from "react-type-animation";
 
-const roles = ["Web Developer", "UI/UX Enthusiast", "Problem Solver"];
+import profileImg from "../../public/images/Shimul.png";
+import backgroundImg from "../../public/images/bg.webp";
 
 const Banner = () => {
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [displayText, setDisplayText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  useEffect(() => {
-    const currentRole = roles[roleIndex];
-    const typingSpeed = isDeleting ? 40 : 90;
-
-    const timeout = setTimeout(() => {
-      if (!isDeleting) {
-        if (displayText.length < currentRole.length) {
-          setDisplayText(currentRole.slice(0, displayText.length + 1));
-        } else {
-          setTimeout(() => setIsDeleting(true), 1200);
-        }
-      } else {
-        if (displayText.length > 0) {
-          setDisplayText(currentRole.slice(0, displayText.length - 1));
-        } else {
-          setIsDeleting(false);
-          setRoleIndex((prev) => (prev + 1) % roles.length);
-        }
-      }
-    }, typingSpeed);
-
-    return () => clearTimeout(timeout);
-  }, [displayText, isDeleting, roleIndex]);
-
   return (
+    <section className="relative min-h-screen flex items-center overflow-hidden">
+      <div
+        className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url(${backgroundImg})`,
+        }}
+      />
 
-    <section className="relative overflow-hidden flex items-start  ">
-      <div className="relative max-w-7xl mx-auto  sm:px-6 lg:px-8 w-full">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="text-center md:text-left order-2 md:order-1">
-            <p className="inline-block text-sm font-medium tracking-widest uppercase text-[#CF15D4] mb-3">
-              👋 Hello, I&apos;m
-            </p>
+      <div className="absolute inset-0 w-full h-full bg-black/60 backdrop-blur-lg" />
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-4">
-              Md.{" "}
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#CF15D4] to-[#7B14F9]">
+      <div className="absolute -top-44 left-0 w-[450px] h-[450px] rounded-full bg-[#CF15D4]/20 blur-[150px] z-10" />
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-[#7B14F9]/20 blur-[180px] z-10" />
+
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full sm:py-3">
+        <div className="grid lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 xl:gap-16 items-center">
+          <div className="order-2 lg:order-1 text-center lg:text-left">
+            <span className="inline-block text-[#CF15D4] tracking-[4px] uppercase text-xs sm:text-sm font-semibold mb-1">
+              👋 Hello I'm
+            </span>
+
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-extrabold leading-[1.1]">
+              <span className="bg-gradient-to-r from-[#CF15D4] via-[#E879F9] to-[#7B14F9] bg-clip-text text-transparent">
                 Shimul
               </span>
             </h1>
 
-            <h2 className="text-xl sm:text-2xl font-semibold text-white/80 mb-6 h-8">
-              I&apos;m a{" "}
-              <span className="text-[#E879F9]">
-                {displayText}
-                <span className="inline-block w-[2px] h-6 bg-[#E879F9] ml-1 align-middle animate-pulse" />
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white mt-1 md:mt-2">
+              I'm a{" "}
+              <span className="text-[#CF15D4]">
+                <TypeAnimation
+                  sequence={[
+                    "Frontend Developer",
+                    1500,
+                    "React Developer",
+                    1500,
+                    "UI/UX Enthusiast",
+                    1500,
+                    "Problem Solver",
+                    1500,
+                  ]}
+                  wrapper="span"
+                  speed={50}
+                  repeat={Infinity}
+                  cursor={true}
+                  className="inline-block"
+                />
               </span>
             </h2>
 
-            <p className="text-black text-base sm:text-lg mb-8 max-w-lg mx-auto md:mx-0">
-              I build clean, responsive, and user-friendly web experiences —
-              turning ideas into interactive products that people enjoy using.
+            <p className="mt-3 md:mt-4 max-w-xl mx-auto lg:mx-0 text-sm sm:text-base md:text-lg leading-relaxed text-white/80">
+              Passionate Frontend Developer who loves building beautiful, fast
+              and user-friendly web applications using React, Tailwind CSS and
+              modern JavaScript.
             </p>
 
-            <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 mb-8">
-              <button className="group relative overflow-hidden inline-flex items-center gap-2 bg-gradient-to-r from-[#CF15D4] to-[#7B14F9] text-white px-6 py-3 rounded-full font-medium shadow-lg hover:shadow-[#CF15D4]/40 hover:scale-105 active:scale-95 transition-all duration-200">
-                View My Work
+            <div className="flex flex-wrap gap-3 sm:gap-4 mt-5 md:mt-6 justify-center lg:justify-start">
+              <button className="group flex items-center gap-2 md:gap-3 rounded-full bg-gradient-to-r from-[#CF15D4] to-[#7B14F9] px-6 sm:px-8 py-3 sm:py-3.5 text-sm sm:text-base font-semibold text-white shadow-xl transition duration-300 hover:scale-105 hover:shadow-2xl">
+                View Projects
                 <FontAwesomeIcon
                   icon={faArrowRight}
-                  className="transition-transform duration-200 group-hover:translate-x-1"
+                  className="group-hover:translate-x-1 transition text-sm sm:text-base"
                 />
               </button>
 
-              <button className="inline-flex items-center gap-2 text-white px-6 py-3 rounded-full font-medium bg-gradient-to-r from-[#CF15D4] to-[#7B14F9] shadow-lg hover:shadow-[#CF15D4]/40 hover:scale-105 active:scale-95 transition-all duration-200 border-0">
-                <FontAwesomeIcon icon={faDownload} />
+              <button className="flex items-center gap-2 md:gap-3 rounded-full border border-white/40 bg-white/10 backdrop-blur-md px-6 sm:px-8 py-3 sm:py-3.5 text-sm sm:text-base text-white transition duration-300 hover:bg-white/20 hover:border-white/60">
+                <FontAwesomeIcon
+                  icon={faDownload}
+                  className="text-sm sm:text-base"
+                />
                 Download CV
               </button>
             </div>
 
-            <div className="flex items-center justify-center md:justify-start gap-4">
-              {[faGithub, faLinkedin, faFacebook].map((icon, i) => (
+            <div className="flex gap-3 md:gap-4 mt-6 md:mt-8 justify-center lg:justify-start">
+              {[faGithub, faLinkedin, faFacebook].map((icon, index) => (
                 <a
-                  key={i}
+                  key={index}
                   href="#"
-                  className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 text-white hover:bg-gradient-to-r hover:from-[#CF15D4] hover:to-[#7B14F9] hover:scale-110 transition-all duration-200"
+                  className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full flex items-center justify-center bg-white/10 border border-white/30 text-white transition duration-300 hover:scale-110 hover:bg-gradient-to-r hover:from-[#CF15D4] hover:to-[#7B14F9] hover:text-white hover:border-transparent"
                 >
-                  <FontAwesomeIcon icon={icon} />
+                  <FontAwesomeIcon
+                    icon={icon}
+                    className="text-sm sm:text-base"
+                  />
                 </a>
               ))}
             </div>
           </div>
 
-          <div className="relative w-full max-w-70 sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto h-70 sm:h-90 md:h-105 lg:h-130 xl:h-150 bg-[#B0EACD] rounded-bl-full flex items-center justify-center order-1 md:order-2">
-            <div className="relative z-10 w-40 h-40 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 xl:w-80 xl:h-80">
-              <div className="absolute -inset-2 rounded-full border-4 border-emerald-500" />
+          <div className="order-1 lg:order-2 min-h-full  mt-0 relative flex justify-center">
+            <div className="relative w-[220px] h-[220px] sm:w-[250px] sm:h-[250px] md:w-[300px] md:h-[300px] lg:w-[340px] lg:h-[340px] xl:w-[380px] xl:h-[380px]">
+              <div className="relative rounded-full w-full h-full overflow-hidden border-4 border-white shadow-2xl transition-all duration-500 hover:shadow-white">
+                <div className="absolute inset-0 rounded-full p-[3px] sm:p-[4px] md:p-[5px] lg:p-[6px] bg-gradient-to-r from-[#CF15D4] via-[#E879F9] to-[#7B14F9]">
+                  <div className="w-full h-full rounded-full bg-black/20 backdrop-blur-[2px] overflow-hidden flex  justify-center">
+                    <img
+                      src={profileImg}
+                      alt="Md Shimul"
+                      className="w-full h-full object-cover object-center rounded-full transition-transform duration-500 hover:scale-105"
+                    />
+                  </div>
+                </div>
 
-              <img
-                src={profileImg}
-                alt="Md. Shimul"
-                className="relative z-10 w-full h-full rounded-full object-cover border-4 border-white"
-              />
+                <div className="absolute inset-0 rounded-full opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
+              </div>
 
-              <div className="absolute -top-4 -right-4 sm:-top-6 sm:-right-6 z-20 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl px-3 py-1.5 sm: sm:py-2 shadow-lg animate-very-slow-bounce">
-                <p className="text-white font-bold text-base sm:text-lg leading-none">
+              <div className="absolute -bottom-2 -left-2 md:-top-2 md:-right-2 md:bottom-auto md:left-auto lg:-top-1 lg:-right-3 bg-gradient-to-br from-[#CF15D4]/90 to-[#7B14F9]/90 backdrop-blur-xl border border-white/30 rounded-2xl px-2.5 sm:px-3 md:px-4 lg:px-5 py-1.5 sm:py-2 animate-float shadow-2xl shadow-[#CF15D4]/30 transition-all duration-300 z-10">
+                <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-white">
                   3+
-                </p>
-                <p className="text-white/60 text-[10px] sm:text-xs">
+                </h2>
+                <p className="text-white/80 text-[8px] sm:text-[10px] md:text-xs lg:text-sm font-medium whitespace-nowrap">
                   Years Exp.
                 </p>
               </div>
 
-              <div className="absolute -bottom-2 -left-4 sm:-left-8 z-20 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl px-3 py-1.5 sm: sm:py-2 shadow-lg animate-very-slow-bounce-delayed">
-                <p className="text-white font-bold text-base sm:text-lg leading-none">
+              <div className="absolute -top-2 -right-2 md:-bottom-2 md:-left-2 md:top-auto md:right-auto lg:-bottom-1 lg:-left-3 bg-gradient-to-br from-[#7B14F9]/90 to-[#CF15D4]/90 backdrop-blur-xl border border-white/30 rounded-2xl px-2.5 sm:px-3 md:px-4 lg:px-5 py-1.5 sm:py-2 animate-float-delay shadow-2xl shadow-[#7B14F9]/30 transition-all duration-300 z-10">
+                <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-white">
                   20+
+                </h2>
+                <p className="text-white/80 text-[8px] sm:text-[10px] md:text-xs lg:text-sm font-medium whitespace-nowrap">
+                  Projects
                 </p>
-                <p className="text-white/60 text-[10px] sm:text-xs">Projects</p>
               </div>
+
+              {/* <div className="absolute -top-10 -left-10 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-pink-500/30 blur-3xl"></div>
+              <div className="absolute -bottom-10 -right-10 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-cyan-400/30 blur-3xl"></div> */}
             </div>
           </div>
         </div>
       </div>
 
-      <div className="hidden md:flex absolute bottom-12 left-1/2 -translate-x-1/2 flex-col items-center gap-2 animate-very-slow-bounce">
-        <span className="text-white/50 text-xs tracking-widest uppercase">
+      <div className="hidden lg:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center z-20">
+        <span className="text-white/60 tracking-[5px] text-[10px] mb-2 font-medium">
           SCROLL
         </span>
-        <div className="w-5 h-8 rounded-full border-2 border-white/30 flex items-start justify-center p-1">
-          <div className="w-1 h-2 bg-white/60 rounded-full animate-pulse" />
+        <div className="w-5 h-8 rounded-full border border-white/30 flex justify-center pt-2">
+          <div className="w-1.5 h-2.5 rounded-full bg-gradient-to-b from-[#CF15D4] to-[#7B14F9] animate-bounce"></div>
         </div>
       </div>
 
       <style>{`
-        @keyframes very-slow-bounce {
-          0%, 100% {
-            transform: translateY(0);
-            animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-          }
-          50% {
-            transform: translateY(-10px);
-            animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-          }
+        @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-12px); }
         }
-        .animate-very-slow-bounce {
-          animation: very-slow-bounce 3.5s infinite;
+        .animate-float { animation: float 4s ease-in-out infinite; }
+        .animate-float-delay { animation: float 4s ease-in-out infinite; animation-delay: 1.5s; }
+
+        @keyframes bounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-8px); }
         }
-        .animate-very-slow-bounce-delayed {
-          animation: very-slow-bounce 3.5s infinite 0.8s;
-        }
+        .animate-bounce { animation: bounce 1.5s ease-in-out infinite; }
       `}</style>
     </section>
   );
