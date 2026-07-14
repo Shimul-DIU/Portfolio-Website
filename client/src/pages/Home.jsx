@@ -1,14 +1,16 @@
 import React from "react";
 import Banner from "../components/Banner";
 import Navbar from "../components/Navbar";
-import About_me from "./About_me";
+import About from "../components/About";
+import Skills from "../components/Skills";
 
 const Home = () => {
   return (
     <div>
       <Navbar></Navbar>
       <Banner></Banner>
-      <About_me> </About_me>
+      <About> </About>
+      <Skills></Skills>
     </div>
   );
 };
