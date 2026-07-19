@@ -5,7 +5,7 @@ const projects = [
     title: "Full Stack Ecommerce website",
     description:
       "A full-stack e-commerce platform with a dedicated admin panel for managing products, categories, orders, and users. Customers can browse products, add items to their cart, place orders, and manage their accounts, while administrators can efficiently control the entire store through a secure dashboard.",
-    image: "../../public/images/ecommerce_project.png",
+    image: "/images/ecommerce_project.png",
     tech: ["React", "Node Js", "MongoDB", "Tailwind CSS"],
     liveLink: "https://shimulshopping.web.app/",
     githubLink: "https://github.com/Shimul-DIU/Ecommerce_website",
@@ -64,7 +64,7 @@ const Projects = () => {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-6"
           }`}
         >
-        
+
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
