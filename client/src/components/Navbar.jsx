@@ -1,39 +1,40 @@
-import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBars,
   faXmark,
   faMagnifyingGlass,
   faArrowLeft,
-} from '@fortawesome/free-solid-svg-icons';
-import { Link, useLocation } from 'react-router-dom';
+  faArrowDown,
+} from "@fortawesome/free-solid-svg-icons";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../../public/images/icon.png";
 
 const navLinks = [
-  { to: '/', label: 'Home' },
-  { to: '/about', label: 'About' },
-  { to: '/projects', label: 'Projects' },
-  { to: '/skills', label: 'Skills' },
-  { to: '/contact', label: 'Contact' },
-  { to: '/blog', label: 'Blog' },
+  { to: "/", label: "Home" },
+  { to: "/about", label: "About" },
+  { to: "/projects", label: "Projects" },
+  { to: "/skills", label: "Skills" },
+  { to: "/contact", label: "Contact" },
+  { to: "/blog", label: "Blog" },
 ];
 
 const Navbar = () => {
   const [isopen, setIsOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const location = useLocation();
 
   const handleLinkClick = () => setIsOpen(false);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    console.log('Searching for:', searchQuery);
+    console.log("Searching for:", searchQuery);
     setSearchOpen(false);
   };
 
-const searchRingClasses =
-  'ring-1 ring-transparent hover:ring-white/70 focus-within:ring-2 focus-within:ring-white transition-all duration-200';;
+  const searchRingClasses =
+    "ring-1 ring-transparent hover:ring-white/70 focus-within:ring-2 focus-within:ring-white transition-all duration-200";
 
   return (
     <>
@@ -80,16 +81,16 @@ const searchRingClasses =
                       to={link.to}
                       className={`relative flex items-center px-2 font-medium whitespace-nowrap transition-colors duration-200 ${
                         isActive
-                          ? 'text-yellow-300'
-                          : 'text-white/90 hover:text-yellow-300'
+                          ? "text-yellow-300"
+                          : "text-white/90 hover:text-yellow-300"
                       }`}
                     >
                       {link.label}
                       <span
                         className={`absolute left-2 right-2 -bottom-[1px] h-[2px] rounded-full bg-yellow-300 origin-left transition-transform duration-300 ${
                           isActive
-                            ? 'scale-x-100'
-                            : 'scale-x-0 group-hover:scale-x-100'
+                            ? "scale-x-100"
+                            : "scale-x-0 group-hover:scale-x-100"
                         }`}
                       />
                     </Link>
@@ -99,10 +100,15 @@ const searchRingClasses =
             </ul>
 
             {/* Resume Button + Mobile Icons */}
-            <div className="flex items-center gap-3 shrink-0 ml-auto md:ml-0">
-              <button className="hidden md:inline-flex relative overflow-hidden bg-white text-[#7B14F9] px-5 py-2 rounded-full font-medium shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-200 text-sm">
+            <div className="flex items-center  gap-3 shrink-0 ml-auto md:ml-0">
+              <a
+                href="/files/Resume_Md.Shimul.pdf"
+                download={"Resume_Md.Shimul Mia.pdf"}
+                className="hidden  md:inline-flex items-center overflow-hidden bg-white text-[#7B14F9] px-5 py-2 md:gap-2 rounded-full font-medium shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-200 text-sm"
+              >
                 Resume
-              </button>
+                <FontAwesomeIcon icon={faArrowDown} />
+              </a>
 
               {/* Mobile search toggle */}
               <button
@@ -121,7 +127,9 @@ const searchRingClasses =
                 <FontAwesomeIcon
                   icon={isopen ? faXmark : faBars}
                   className="text-2xl transition-transform duration-300"
-                  style={{ transform: isopen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                  style={{
+                    transform: isopen ? "rotate(180deg)" : "rotate(0deg)",
+                  }}
                 />
               </button>
             </div>
@@ -131,8 +139,8 @@ const searchRingClasses =
               onSubmit={handleSearchSubmit}
               className={`md:hidden absolute inset-0 flex items-center gap-2 px-4 bg-linear-to-bl from-[#CF15D4] to-[#7B14F9] z-10 transition-all duration-300 ${
                 searchOpen
-                  ? 'opacity-100 visible'
-                  : 'opacity-0 invisible pointer-events-none'
+                  ? "opacity-100 visible"
+                  : "opacity-0 invisible pointer-events-none"
               }`}
             >
               <button
@@ -162,7 +170,7 @@ const searchRingClasses =
         {/* Mobile Menu Dropdown */}
         <div
           className={`md:hidden transition-all duration-300 ease-in-out ${
-            isopen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 invisible'
+            isopen ? "max-h-screen opacity-100" : "max-h-0 opacity-0 invisible"
           } overflow-hidden bg-white border-t border-gray-100 shadow-lg`}
         >
           <ul className="flex flex-col py-3 px-4 space-y-1">
@@ -171,9 +179,9 @@ const searchRingClasses =
                 key={link.to}
                 className="transition-all duration-300"
                 style={{
-                  transitionDelay: isopen ? `${i * 60}ms` : '0ms',
+                  transitionDelay: isopen ? `${i * 60}ms` : "0ms",
                   opacity: isopen ? 1 : 0,
-                  transform: isopen ? 'translateX(0)' : 'translateX(-12px)',
+                  transform: isopen ? "translateX(0)" : "translateX(-12px)",
                 }}
               >
                 <Link
@@ -181,8 +189,8 @@ const searchRingClasses =
                   onClick={handleLinkClick}
                   className={`block px-4 py-3 rounded-lg font-medium transition ${
                     location.pathname === link.to
-                      ? 'text-[#7B14F9] bg-purple-50'
-                      : 'text-gray-700 hover:text-[#7B14F9] hover:bg-gray-50'
+                      ? "text-[#7B14F9] bg-purple-50"
+                      : "text-gray-700 hover:text-[#7B14F9] hover:bg-gray-50"
                   }`}
                 >
                   {link.label}
@@ -192,17 +200,20 @@ const searchRingClasses =
             <li
               className="pt-2 transition-all duration-300"
               style={{
-                transitionDelay: isopen ? `${navLinks.length * 60}ms` : '0ms',
+                transitionDelay: isopen ? `${navLinks.length * 60}ms` : "0ms",
                 opacity: isopen ? 1 : 0,
-                transform: isopen ? 'translateX(0)' : 'translateX(-12px)',
+                transform: isopen ? "translateX(0)" : "translateX(-12px)",
               }}
             >
-              <button
+              <a
+                href="/files/Resume_Md_Shimul.pdf"
+                download="Resume_Md_Shimul.pdf"
                 onClick={handleLinkClick}
-                className="w-full bg-linear-to-bl from-[#CF15D4] to-[#7B14F9] text-white px-4 py-3 rounded-xl font-medium hover:shadow-md active:scale-95 transition"
+                className="w-full justify-center text-center bg-linear-to-bl from-[#CF15D4] items-center to-[#7B14F9] text-white px-4 flex gap-2.5 py-3 rounded-xl font-medium hover:shadow-md active:scale-95 transition"
               >
                 Resume
-              </button>
+                <FontAwesomeIcon icon={faArrowDown} />
+              </a>
             </li>
           </ul>
         </div>

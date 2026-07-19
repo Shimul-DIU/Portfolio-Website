@@ -10,6 +10,7 @@ import { TypeAnimation } from "react-type-animation";
 
 import profileImg from "../../public/images/Shimul.png";
 import backgroundImg from "../../public/images/bg.webp";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   return (
@@ -69,21 +70,28 @@ const Banner = () => {
             </p>
 
             <div className="flex flex-wrap gap-3 sm:gap-4 mt-5 md:mt-6 justify-center lg:justify-start">
-              <button className="group flex items-center gap-2 md:gap-3 rounded-full bg-gradient-to-r from-[#CF15D4] to-[#7B14F9] px-6 sm:px-8 py-3 sm:py-3.5 text-sm sm:text-base font-semibold text-white shadow-xl transition duration-300 hover:scale-105 hover:shadow-2xl">
+              <Link
+                to="/projects"
+                className="group flex items-center gap-2 md:gap-3 rounded-full bg-gradient-to-r from-[#CF15D4] to-[#7B14F9] px-6 sm:px-8 py-3 sm:py-3.5 text-sm sm:text-base font-semibold text-white shadow-xl transition duration-300 hover:scale-105 hover:shadow-2xl"
+              >
                 View Projects
                 <FontAwesomeIcon
                   icon={faArrowRight}
                   className="group-hover:translate-x-1 transition text-sm sm:text-base"
                 />
-              </button>
+              </Link>
 
-              <button className="flex items-center gap-2 md:gap-3 rounded-full border border-white/40 bg-white/10 backdrop-blur-md px-6 sm:px-8 py-3 sm:py-3.5 text-sm sm:text-base text-white transition duration-300 hover:bg-white/20 hover:border-white/60">
+              <a
+                href="/files/Cv_of_Md.Shimul.pdf"
+                download={"Cv_of_Md. Shimul.pdf"}
+                className="flex items-center gap-2 md:gap-3 rounded-full border border-white/40 bg-white/10 backdrop-blur-md px-6 sm:px-8 py-3 sm:py-3.5 text-sm sm:text-base text-white transition duration-300 hover:bg-white/20 hover:border-white/60"
+              >
                 <FontAwesomeIcon
                   icon={faDownload}
                   className="text-sm sm:text-base"
                 />
                 Download CV
-              </button>
+              </a>
             </div>
 
             <div className="flex gap-3 md:gap-4 mt-6 md:mt-8 justify-center lg:justify-start">
@@ -129,7 +137,7 @@ const Banner = () => {
 
               <div className="absolute -top-2 -right-2 md:-bottom-2 md:-left-2 md:top-auto md:right-auto lg:-bottom-1 lg:-left-3 bg-gradient-to-br from-[#7B14F9]/90 to-[#CF15D4]/90 backdrop-blur-xl border border-white/30 rounded-2xl px-2.5 sm:px-3 md:px-4 lg:px-5 py-1.5 sm:py-2 animate-float-delay shadow-2xl shadow-[#7B14F9]/30 transition-all duration-300 z-10">
                 <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-white">
-                  20+
+                  10+
                 </h2>
                 <p className="text-white/80 text-[8px] sm:text-[10px] md:text-xs lg:text-sm font-medium whitespace-nowrap">
                   Projects

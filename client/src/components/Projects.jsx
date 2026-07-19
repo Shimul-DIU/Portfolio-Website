@@ -2,13 +2,13 @@ import { useEffect, useRef, useState } from "react";
 
 const projects = [
   {
-    title: "Project One",
+    title: "Full Stack Ecommerce website",
     description:
-      "A short description of what this project does and the problem it solves.",
-    image: "/images/project1.png",
+      "A full-stack e-commerce platform with a dedicated admin panel for managing products, categories, orders, and users. Customers can browse products, add items to their cart, place orders, and manage their accounts, while administrators can efficiently control the entire store through a secure dashboard.",
+    image: "../../public/images/ecommerce_project.png",
     tech: ["React", "Node Js", "MongoDB", "Tailwind CSS"],
-    liveLink: "https://your-live-link.com",
-    githubLink: "https://github.com/yourusername/project-one",
+    liveLink: "https://shimulshopping.web.app/",
+    githubLink: "https://github.com/Shimul-DIU/Ecommerce_website",
   },
   {
     title: "Project Two",

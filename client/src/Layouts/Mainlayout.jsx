@@ -7,6 +7,7 @@ import SignUpWithGoogle from '../firebase/auth/SignUpWithGoogle';
 const Mainlayout = () => {
     return (
         <div>
+            <Navbar/>
             <main>
 
                 <Outlet />
