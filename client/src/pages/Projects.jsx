@@ -5,7 +5,7 @@ const projects = [
     title: "Full Stack Ecommerce website",
     description:
       "A full-stack e-commerce platform with a dedicated admin panel for managing products, categories, orders, and users. Customers can browse products, add items to their cart, place orders, and manage their accounts, while administrators can efficiently control the entire store through a secure dashboard.",
-    image: "/images/ecommerce_project.png",
+    image: "https://ibb.co.com/BH2Y9VHh",
     tech: ["React", "Node Js", "MongoDB", "Tailwind CSS"],
     liveLink: "https://shimulshopping.web.app/",
     githubLink: "https://github.com/Shimul-DIU/Ecommerce_website",
