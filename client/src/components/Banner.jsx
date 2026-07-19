@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { TypeAnimation } from "react-type-animation";
 
-import profileImg from "../../public/images/Shimul.png";
+
 import backgroundImg from "../../public/images/bg.webp";
 import { Link } from "react-router-dom";
 
@@ -116,7 +116,7 @@ const Banner = () => {
                 <div className="absolute inset-0 rounded-full p-[3px] sm:p-[4px] md:p-[5px] lg:p-[6px] bg-gradient-to-r from-[#CF15D4] via-[#E879F9] to-[#7B14F9]">
                   <div className="w-full h-full rounded-full bg-black/20 backdrop-blur-[2px] overflow-hidden flex  justify-center">
                     <img
-                      src={profileImg}
+                      src="https://res.cloudinary.com/t5icq7cq/image/upload/v1784465212/Shimul_envfhk.png"
                       alt="Md Shimul"
                       className="w-full h-full object-cover object-center rounded-full transition-transform duration-500 hover:scale-105"
                     />

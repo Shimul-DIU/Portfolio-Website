@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 const projects = [
   {
-    title: "Full Stack Ecommerce website",
+    title: "Full Stack E-Commerce Platform",
     description:
       "A full-stack e-commerce platform with a dedicated admin panel for managing products, categories, orders, and users. Customers can browse products, add items to their cart, place orders, and manage their accounts, while administrators can efficiently control the entire store through a secure dashboard.",
     image:
@@ -64,9 +64,7 @@ const Projects = () => {
           className={`text-gray-500 mb-14 max-w-2xl mx-auto transition-all duration-700 delay-100 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-6"
           }`}
-        >
-
-        </p>
+        ></p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (

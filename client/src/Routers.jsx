@@ -10,20 +10,19 @@ import ResumePage from "./pages/ResumePage";
 import NotFound from "./components/NotFound";
 
 
-let router=createBrowserRouter([
+let router = createBrowserRouter([
   {
-    path:'/',
-    element:<Mainlayout></Mainlayout>,
-    children:[
-      {index:true, element:<Home/>},
-      {path:'/about', element:<About_me/>},
-      {path:'/projects',element:<Projects/>},
-      {path:'/Skills', element:<Skills/>},
-      {path:'/resume', element:<ResumePage/>},
-      {path:'/blog', element:<Blog/>},
-      {path: "*",element: <NotFound />,}
-
-    ]
-  }
-])
+    path: "/",
+    element: <Mainlayout></Mainlayout>,
+    children: [
+      { index: true, element: <Home /> },
+      { path: "/about", element: <About_me /> },
+      { path: "/projects", element: <Projects/> },
+      { path: "/Skills", element: <Skills /> },
+      { path: "/resume", element: <ResumePage /> },
+      { path: "/blog", element: <Blog /> },
+      { path: "*", element: <NotFound /> },
+    ],
+  },
+]);
 export default router;
