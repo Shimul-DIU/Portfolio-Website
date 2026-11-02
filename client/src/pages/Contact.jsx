@@ -5,6 +5,7 @@ import {
   faPhone,
   faLocationDot,
   faPaperPlane,
+  faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faGithub,
@@ -12,8 +13,11 @@ import {
   faFacebook,
 } from "@fortawesome/free-brands-svg-icons";
 
+const WEB3FORMS_ACCESS_KEY = "7b1e4fb6-5fdb-4755-a947-72f61f7728c2";
+
 const Contact = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [status, setStatus] = useState("idle"); // idle | sending | success | error
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -31,12 +35,37 @@ const Contact = () => {
     return () => observer.disconnect();
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission (e.g., send to email, backend, etc.)
-    alert("Thank you for your message! I'll get back to you soon.");
-    // Reset form
-    e.target.reset();
+    const form = e.target;
+    setStatus("sending");
+
+    const formData = new FormData(form);
+    formData.append("access_key", WEB3FORMS_ACCESS_KEY);
+    formData.append("from_name", "Portfolio Contact Form");
+
+    // subject খালি থাকলে একটা ডিফল্ট সাবজেক্ট দেওয়া হবে
+    if (!formData.get("subject")) {
+      formData.set("subject", "New message from your portfolio");
+    }
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        setStatus("success");
+        form.reset();
+        setTimeout(() => setStatus("idle"), 5000);
+      } else {
+        setStatus("error");
+      }
+    } catch (error) {
+      setStatus("error");
+    }
   };
 
   const contactInfo = [
@@ -81,12 +110,12 @@ const Contact = () => {
       className="max-w-7xl mx-auto min-h-fit bg-[#0F1117] flex items-center py-8 px-3 sm:px-6 lg:px-8 overflow-hidden"
     >
       <div
-        className={`max-w-5xl mx-auto w-full border border-[#262936] bg-[#171923] p-4 sm:p-6 rounded-2xl transition-all duration-1000 ease-out delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
+        className={`max-w-5xl mx-auto w-full border border-[#262936] bg-[#171923] p-4 sm:p-6 rounded-2xl transition-all duration-1000 ease-out delay-200 ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
       >
         {/* Header */}
         <div className="text-center mb-8">
-         
           <h2 className="font-['Playfair_Display'] text-2xl sm:text-4xl lg:text-5xl font-bold text-[#F5EFE6] leading-tight">
             Let's Connect
           </h2>
@@ -147,6 +176,16 @@ const Contact = () => {
           {/* Contact Form (Right) */}
           <div className="lg:w-3/5">
             <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Spam protection (honeypot) - ইউজার দেখতে পাবে না */}
+              <input
+                type="checkbox"
+                name="botcheck"
+                className="hidden"
+                style={{ display: "none" }}
+                tabIndex={-1}
+                autoComplete="off"
+              />
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label
@@ -217,11 +256,29 @@ const Contact = () => {
 
               <button
                 type="submit"
-                className="inline-flex items-center justify-center gap-2.5 w-full sm:w-auto rounded-full bg-[#C9A876] px-8 py-3 text-sm font-semibold text-[#140D0A] transition-all duration-300 hover:bg-[#E8D9BE] hover:-translate-y-0.5 hover:shadow-xl shadow-md font-['Inter']"
+                disabled={status === "sending"}
+                className="inline-flex items-center justify-center gap-2.5 w-full sm:w-auto rounded-full bg-[#C9A876] px-8 py-3 text-sm font-semibold text-[#140D0A] transition-all duration-300 hover:bg-[#E8D9BE] hover:-translate-y-0.5 hover:shadow-xl shadow-md font-['Inter'] disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0"
               >
-                <span>Send Message</span>
-                <FontAwesomeIcon icon={faPaperPlane} className="text-xs" />
+                <span>{status === "sending" ? "Sending..." : "Send Message"}</span>
+                <FontAwesomeIcon
+                  icon={status === "sending" ? faSpinner : faPaperPlane}
+                  spin={status === "sending"}
+                  className="text-xs"
+                />
               </button>
+
+              {/* Status message */}
+              {status === "success" && (
+                <p className="text-green-400 text-sm font-['Inter']">
+                  ✓ Thank you! Your message has been sent. I'll get back to you soon.
+                </p>
+              )}
+              {status === "error" && (
+                <p className="text-red-400 text-sm font-['Inter']">
+                  Something went wrong. Please try again or email me directly at
+                  md.shimuldiu@gmail.com.
+                </p>
+              )}
             </form>
           </div>
         </div>
