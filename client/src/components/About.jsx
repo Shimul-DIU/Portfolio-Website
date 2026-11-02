@@ -37,7 +37,7 @@ const About = () => {
         {/* Left side image - hidden on small devices, visible from md up. Stretches to match right side height */}
         <div className="hidden md:block md:w-2/5 flex-shrink-0">
           <img
-            src="./images/Shimul.png"
+            src="./images/about_me.png"
             alt="Md. Shimul"
             className="w-full h-full object-cover rounded-xl"
           />
@@ -155,7 +155,7 @@ const About = () => {
           {/* Action Button */}
           <div>
             <a
-              href="#contact"
+              href="/contact"
               className="inline-flex items-center justify-center gap-2.5 rounded-full bg-[#C9A876] px-4 py-2.5 sm:px-8 sm:py-3 text-xs sm:text-sm font-semibold text-[#140D0A] transition-all duration-300 hover:bg-[#E8D9BE] hover:-translate-y-0.5 hover:shadow-xl shadow-md font-['Inter'] w-full sm:w-auto"
             >
               <span>Hire Me</span>

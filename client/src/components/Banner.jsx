@@ -3,6 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faDownload,
   faCode,
+  faEye,
+  faXmark,
+  faArrowUpRightFromSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faGithub,
@@ -11,9 +14,15 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import Typed from "typed.js";
 
+// CV-র পাথ একটাই জায়গায় রাখলাম। public/files/ এর আসল ফাইলনামের সাথে মিলিয়ে নিন
+const CV_URL = "/files/Cv_of_Md.Shimul mia.pdf";
+const CV_FILENAME = "Cv_of_Md.Shimul mia.pdf";
+
 const Banner = () => {
   const typedElement = useRef(null);
   const [width, setWidth] = useState(window.innerWidth);
+  const [cvOpen, setCvOpen] = useState(false);
+  const [cvExists, setCvExists] = useState(true);
 
   useEffect(() => {
     setWidth(window.innerWidth);
@@ -49,6 +58,36 @@ const Banner = () => {
       typed.destroy();
     };
   }, []);
+
+  // মডাল খোলার আগে ফাইল আসলেই PDF কি না চেক করে
+  const openCv = async () => {
+    try {
+      const res = await fetch(CV_URL, { method: "HEAD" });
+      const type = res.headers.get("content-type") || "";
+      setCvExists(res.ok && type.includes("pdf"));
+    } catch {
+      setCvExists(false);
+    }
+    setCvOpen(true);
+  };
+
+  // Esc চাপলে মডাল বন্ধ + মডাল খোলা থাকলে পেছনের স্ক্রল বন্ধ
+  useEffect(() => {
+    if (!cvOpen) return;
+
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") setCvOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [cvOpen]);
 
   const socialLinks = [
     { icon: faGithub, url: "https://github.com/Shimul-DIU", label: "GitHub" },
@@ -140,18 +179,19 @@ const Banner = () => {
                 </div>
 
                 <div className="flex flex-row flex-nowrap items-center justify-center gap-1.5 sm:gap-2 flex-shrink-0">
-                  <a
-                    href="/files/Cv_of_Md.Shimul.pdf"
-                    download="Cv_of_Md.Shimul.pdf"
+                  {/* CV বাটন: এখন আগে প্রিভিউ খুলবে */}
+                  <button
+                    type="button"
+                    onClick={openCv}
                     className="flex items-center justify-center gap-1 rounded-lg border border-[#C9A876]/40 bg-[#171923] px-2.5 sm:px-3 py-1.5 sm:py-2 text-[10px] sm:text-xs text-[#F5EFE6] transition-all duration-300 hover:bg-[#0F1117] font-['Inter'] whitespace-nowrap"
                   >
                     <FontAwesomeIcon
-                      icon={faDownload}
+                      icon={faEye}
                       className="text-[15px] sm:text-md md:text-lg md:p-1"
                     />
-                    <span className="hidden xs:inline">Download CV</span>
+                    <span className="hidden xs:inline">View CV</span>
                     <span className="xs:hidden">CV</span>
-                  </a>
+                  </button>
 
                   <div className="flex gap-1 sm:gap-1.5">
                     {socialLinks.map((social, index) => (
@@ -215,6 +255,83 @@ const Banner = () => {
           </div>
         </div>
       </section>
+
+      {/* CV Preview Modal */}
+      {cvOpen && (
+        <div
+          className="fixed inset-0 z-[70] flex items-center justify-center bg-black/70 backdrop-blur-sm p-3 sm:p-6"
+          onClick={() => setCvOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="CV preview"
+        >
+          <div
+            className="w-full max-w-4xl h-[90vh] flex flex-col rounded-2xl border border-[#C9A876]/30 bg-[#171923] shadow-2xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal header */}
+            <div className="flex items-center justify-between gap-3 px-4 py-3 border-b border-[#262936]">
+              <h3 className="font-['Playfair_Display'] text-lg sm:text-xl font-bold text-[#F5EFE6]">
+                Curriculum Vitae
+              </h3>
+
+              <div className="flex items-center gap-2">
+                {cvExists && (
+                  <a
+                    href={CV_URL}
+                    download={CV_FILENAME}
+                    className="inline-flex items-center gap-2 rounded-full bg-[#C9A876] px-4 py-2 text-xs sm:text-sm font-semibold text-[#140D0A] font-['Inter'] hover:bg-[#E8D9BE] active:scale-95 transition"
+                  >
+                    Download
+                    <FontAwesomeIcon icon={faDownload} className="text-xs" />
+                  </a>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setCvOpen(false)}
+                  className="flex items-center justify-center w-9 h-9 rounded-full border border-[#C9A876]/30 text-[#F5EFE6] hover:bg-[#C9A876] hover:text-[#140D0A] active:scale-90 transition"
+                  aria-label="Close CV preview"
+                >
+                  <FontAwesomeIcon icon={faXmark} />
+                </button>
+              </div>
+            </div>
+
+            {/* PDF preview */}
+            <div className="flex-1 bg-[#0F1117]">
+              {cvExists ? (
+                <iframe
+                  src={`${CV_URL}#view=FitH`}
+                  title="CV preview"
+                  className="w-full h-full"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-center px-6 text-[#F5EFE6]/70 font-['Inter'] text-sm">
+                  CV file not found. Please check the file name in public/files.
+                </div>
+              )}
+            </div>
+
+            {/* মোবাইলে অনেক ব্রাউজার ইনলাইন PDF দেখায় না, তাই ব্যাকআপ লিংক */}
+            {cvExists && (
+              <div className="px-4 py-2 border-t border-[#262936] text-center">
+                <a
+                  href={CV_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-xs text-[#C9A876] font-['Inter'] hover:underline"
+                >
+                  Preview not showing? Open in new tab
+                  <FontAwesomeIcon
+                    icon={faArrowUpRightFromSquare}
+                    className="text-[10px]"
+                  />
+                </a>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600;700&display=swap');
