@@ -17,7 +17,7 @@ import {
 
 const projects = [
   {
-    title: "Full Stack E-Commerce Platform",
+    title: "E-Commerce Platform",
     description:
       "A full-stack e-commerce platform with a dedicated admin panel for managing products, categories, orders, and users. Customers can browse products, add items to their cart, place orders, and manage their accounts, while administrators can efficiently control the entire store through a secure dashboard.",
     image:
@@ -31,25 +31,55 @@ const projects = [
     title: "Khwaja Mozammel Hoque (R) Foundation",
     description:
       "A full-stack foundation website designed to showcase social activities, initiatives, and donation programs while providing users with an accessible platform to learn about and engage with the foundation.",
-    image: "https://res.cloudinary.com/jfz1pb3v/image/upload/v1788524364/Screenshot_2026-09-04_181338.png",
-    tech: ["Next.js","TypeScript",'Postgresql',"Firebase"],
+    image:
+      "https://res.cloudinary.com/jfz1pb3v/image/upload/v1788524364/Screenshot_2026-09-04_181338.png",
+    tech: ["Next.js", "TypeScript", "Postgresql", "Firebase"],
     liveLink: "https://foundation-a7d60.web.app/",
     githubLink: "https://github.com/Shimul-DIU/Khwaja-Mozammel-Hoque-Foundation",
     featured: false,
   },
-
   {
-    title: "Project Three",
+    title: "Doctor Tracker",
     description:
-      "A short description of what this project does and the problem it solves.",
-    image: "/images/project3.png",
-    tech: ["React", "Express Js", "MySQL"],
-    liveLink: "https://your-live-link.com",
-    githubLink: "https://github.com/yourusername/project-three",
+      "A doctor tracking and management application that helps users find doctors, view their details and schedules, and keep track of appointments in one organized place.",
+    image: "/images/doctor-tracker.png",
+    tech: ["React", "Node Js", "MongoDB"],
+    liveLink: "https://your-doctor-tracker-link.com",
+    githubLink: "https://github.com/Shimul-DIU/your-repo-name",
+    featured: false,
+  },
+  {
+    title: "ByteSpace Landing Page",
+    description:
+      "A pixel-accurate, fully responsive landing page built from a Figma design using reusable components and a clean section-based structure, including Navbar, Hero, Testimonials, Call to Action, Footer, and a Register page.",
+    image: "/images/bytespace_new.png",
+    tech: ["Next.js", "TypeScript", "Tailwind CSS"],
+    liveLink: "https://merry-beignet-3eddc6.netlify.app/",
+    githubLink:
+      "https://github.com/Shimul-DIU/bytespace-new/tree/feature/landing-page",
+    featured: false,
+  },
+  {
+    title: "Ostad Assignment 2",
+    description:
+      "A responsive web page converted from a Figma design, built as part of the Ostad MERN stack course assignment with a focus on matching the design closely across all screen sizes.",
+    image: "/images/assignment_2.png",
+    tech: ["HTML", "CSS", "Tailwind CSS"],
+    liveLink: "https://assignment-2-landing-page.netlify.app/",
+    githubLink: "https://github.com/Shimul-DIU/Ostad/tree/main/Assignment_2",
+    featured: false,
+  },
+  {
+    title: "Ostad Assignment 3",
+    description:
+      "A responsive web page built as part of the Ostad MERN stack course assignment, translating a Figma design into clean, mobile-friendly code.",
+    image: "/images/portfolio.png",
+    tech: ["HTML", "CSS", "Tailwind CSS"],
+    liveLink: "https://shimulportfoliodiu.netlify.app/",
+    githubLink: "https://github.com/Shimul-DIU/Ostad/tree/main/Assignment_3",
     featured: false,
   },
 ];
-
 const Projects = () => {
   const [width,setWidth]=useState(window.innerWidth);
   const handleResize=()=>{
@@ -84,13 +114,13 @@ const Projects = () => {
   const getTechIcon = (tech) => {
     const techMap = {
       "React": faReact,
-      "Node Js": faNodeJs,
+      "Node.js": faNodeJs,
       "MongoDB": faDatabase,
       "Tailwind CSS": faLaptopCode,
-      "Next Js": faReact,
+      "Next.js": faReact,
       "Firebase": faDatabase,
       "Material UI": faLaptopCode,
-      "Express Js": faServer,
+      "Express.js": faServer,
       "MySQL": faDatabase,
     };
     return techMap[tech] || faCode;
@@ -207,22 +237,7 @@ const Projects = () => {
           ))}
         </div>
 
-        {/* View All Projects Button */}
-        <div
-          className={`mt-12 transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-            }`}
-        >
-          <a
-            href="/projects"
-            className="inline-flex items-center gap-2 rounded-full border border-[#C9A876]/40 px-8 py-3.5 text-sm font-medium text-[#F5EFE6] transition-all duration-300 hover:bg-[#2A1D16] hover:border-[#C9A876] hover:scale-105 font-['Inter'] group"
-          >
-            View All Projects
-            <FontAwesomeIcon
-              icon={faArrowRight}
-              className="text-xs group-hover:translate-x-1 transition-transform duration-300"
-            />
-          </a>
-        </div>
+      
       </div>
     </section>
   );

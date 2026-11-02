@@ -5,8 +5,8 @@ import About from "../components/About";
 import Skills from "../components/Skills";
 
 import DevelopmentPopup from "../components/DevelopmentPopup";
-import Projects from './Projects';
-
+import ProjectsComponent from "../components/ProjectsComponent";
+import BlogComponent from "../components/BlogComponent";
 const Home = () => {
   return (
     <div>
@@ -15,7 +15,8 @@ const Home = () => {
       <Banner></Banner>
       <About> </About>
       <Skills></Skills>
-      <Projects></Projects>
+      <ProjectsComponent></ProjectsComponent>
+      <BlogComponent></BlogComponent>
     </div>
   );
 };

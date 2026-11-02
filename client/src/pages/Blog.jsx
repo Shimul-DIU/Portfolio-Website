@@ -159,15 +159,7 @@ const Blog = () => {
           ))}
         </div>
 
-        {/* View All Button (Optional) */}
-        <div className="text-center mt-8">
-          <a
-            href="/blog"
-            className="inline-flex items-center justify-center gap-2.5 rounded-full border border-[#C9A876]/40 bg-transparent px-6 py-2.5 text-xs sm:text-sm font-semibold text-[#F5EFE6] transition-all duration-300 hover:bg-[#C9A876] hover:text-[#140D0A] hover:-translate-y-0.5 font-['Inter']"
-          >
-            View All Posts
-          </a>
-        </div>
+        
       </div>
     </section>
   );
