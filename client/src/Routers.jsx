@@ -4,11 +4,11 @@ import Mainlayout from "./Layouts/Mainlayout";
 import Projects from "./pages/Projects";
 import Skills from './pages/Skills';
 
-import Blog from "./pages/Blog";
 import ResumePage from "./pages/ResumePage";
 import NotFound from "./components/NotFound";
 import AboutPage from "./pages/AboutPage";
 import Contact from "./pages/Contact";
+import BlogPage from "./pages/BlogPage";
 
 
 let router = createBrowserRouter([
@@ -21,7 +21,7 @@ let router = createBrowserRouter([
       { path: "/projects", element: <Projects/> },
       { path: "/Skills", element: <Skills /> },
       { path: "/resume", element: <ResumePage /> },
-      { path: "/blog", element: <Blog /> },
+      { path: "/blog", element: <BlogPage /> },
       { path: "/contact", element: <Contact /> },
       { path: "*", element: <NotFound /> },
     ],

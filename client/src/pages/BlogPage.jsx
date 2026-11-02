@@ -2,8 +2,33 @@ import React, { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarAlt, faUser, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
-// Dummy blog posts data – replace with your own
+// ছবি লোড না হলে এই ইনলাইন SVG দেখাবে (আলাদা ফাইল লাগবে না)
+const FALLBACK_IMAGE =
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="225" viewBox="0 0 400 225">
+      <rect width="400" height="225" fill="#1a1a2e"/>
+      <text x="200" y="120" font-family="Arial" font-size="20" fill="#C9A876" text-anchor="middle">Blog Post</text>
+    </svg>`
+  );
+
 const blogPosts = [
+  // ---------- নতুন JSON সিরিজ ----------
+  {
+    id: 13,
+    title: "Getting Started with ASP.NET Core Web Development",
+    excerpt: "Set up your first ASP.NET Core project, understand the folder structure, middleware pipeline, and how requests flow through your app.",
+    date: "November 2, 2026",
+    author: "Md. Shimul",
+    image: "https://cdn.simpleicons.org/dotnet/C9A876",
+    fit: "contain",
+    slug: "getting-started-with-aspnet-core",
+  },
+  
+  
+  
+
+  // ---------- আগের পোস্ট ----------
   {
     id: 1,
     title: "Getting Started with React Hooks",
@@ -33,7 +58,7 @@ const blogPosts = [
   },
   {
     id: 4,
-    title: "Building a Portfolio with React ",
+    title: "Building a Portfolio with React",
     excerpt: "Add smooth animations and transitions to your React portfolio to make it stand out.",
     date: "June 30, 2026",
     author: "Md. Shimul",
@@ -60,7 +85,7 @@ const blogPosts = [
   },
 ];
 
-const Blog = () => {
+const BlogPage = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
 
@@ -86,12 +111,12 @@ const Blog = () => {
       className="max-w-7xl mx-auto min-h-fit bg-[#0F1117] flex items-center py-8 px-3 sm:px-6 lg:px-8 overflow-hidden"
     >
       <div
-        className={`max-w-5xl mx-auto w-full border border-[#262936] bg-[#171923] p-4 sm:p-6 rounded-2xl transition-all duration-1000 ease-out delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
+        className={`max-w-5xl mx-auto w-full border border-[#262936] bg-[#171923] p-4 sm:p-6 rounded-2xl transition-all duration-1000 ease-out delay-200 ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
       >
         {/* Header */}
         <div className="text-center mb-8">
-         
           <h2 className="font-['Playfair_Display'] text-2xl sm:text-4xl lg:text-5xl font-bold text-[#F5EFE6] leading-tight">
             Latest Articles
           </h2>
@@ -112,9 +137,13 @@ const Blog = () => {
                 <img
                   src={post.image}
                   alt={post.title}
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  loading="lazy"
+                  className={`w-full h-full transition-transform duration-500 hover:scale-105 ${
+                    post.fit === "contain" ? "object-contain p-10" : "object-cover"
+                  }`}
                   onError={(e) => {
-                    e.currentTarget.src = "https://via.placeholder.com/400x225/1a1a2e/C9A876?text=Blog+Post";
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = FALLBACK_IMAGE;
                   }}
                 />
               </div>
@@ -158,11 +187,9 @@ const Blog = () => {
             </article>
           ))}
         </div>
-
-        
       </div>
     </section>
   );
 };
 
-export default Blog;
+export default BlogPage;

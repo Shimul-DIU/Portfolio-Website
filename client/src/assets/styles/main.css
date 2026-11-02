@@ -3,3 +3,7 @@
   --text-primary: black;
   --text-secondary: rgba(32, 35, 209, 0.8);
 }
+
+body {
+  font-family: "Inter", sans-serif;
+}
