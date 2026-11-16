@@ -9,7 +9,7 @@ import {
   faEye,
   faArrowUpRightFromSquare,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -27,9 +27,12 @@ const RESUME_FILENAME = "Resume_Md_Shimul.pdf";
 const Navbar = () => {
   const [isopen, setIsOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(
+    () => new URLSearchParams(window.location.search).get("search") || "",
+  );
   const [resumeOpen, setResumeOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const handleLinkClick = () => setIsOpen(false);
 
@@ -40,7 +43,8 @@ const Navbar = () => {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    console.log("Searching for:", searchQuery);
+    const query = searchQuery.trim();
+    navigate(query ? `/projects?search=${encodeURIComponent(query)}` : "/projects");
     setSearchOpen(false);
   };
 
@@ -93,7 +97,7 @@ const Navbar = () => {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search..."
+                placeholder="Search projects by skill..."
                 className="w-full bg-transparent text-black placeholder-black text-sm outline-none font-['Inter']"
               />
             </form>
@@ -187,10 +191,17 @@ const Navbar = () => {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search..."
+                  placeholder="Search projects by skill..."
                   className="w-full bg-transparent text-black placeholder-black text-sm outline-none font-['Inter']"
                 />
               </div>
+              <button
+                type="submit"
+                className="flex items-center justify-center w-9 h-9 shrink-0 rounded-full bg-[#C9A876] text-black hover:bg-[#E8D9BE] active:scale-90 transition"
+                aria-label="Search projects"
+              >
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
+              </button>
             </form>
           </div>
         </div>

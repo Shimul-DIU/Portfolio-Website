@@ -14,6 +14,7 @@ import {
   faArrowRight,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
+import { useSearchParams } from "react-router-dom";
 
 const projects = [
   {
@@ -80,7 +81,20 @@ const projects = [
     featured: false,
   },
 ];
+
+const normalizeSearchText = (value) => value.toLowerCase().replace(/[^a-z0-9]/g, "");
+
 const Projects = () => {
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get("search")?.trim() || "";
+  const normalizedQuery = normalizeSearchText(searchQuery);
+  const filteredProjects = normalizedQuery
+    ? projects.filter((project) =>
+        normalizeSearchText(
+          [project.title, project.description, ...project.tech].join(" "),
+        ).includes(normalizedQuery),
+      )
+    : projects;
   const [width,setWidth]=useState(window.innerWidth);
   const handleResize=()=>{
     setWidth(window.innerWidth)
@@ -156,8 +170,16 @@ const Projects = () => {
           Each project represents a unique challenge solved with creativity and technical expertise.
         </p>
 
+        {searchQuery && (
+          <p className="text-[#F5EFE6]/70 mb-6 font-['Inter']" aria-live="polite">
+            {filteredProjects.length
+              ? `Projects matching "${searchQuery}"`
+              : `No projects found for "${searchQuery}"`}
+          </p>
+        )}
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
+          {filteredProjects.map((project, index) => (
             <div
               key={project.title}
               className={`group bg-[#171923] backdrop-blur-sm rounded-2xl overflow-hidden border border-[#C9A876]/20 hover:border-[#C9A876]/60 hover:shadow-2xl hover:shadow-[#C9A876]/10 hover:-translate-y-2 transition-all duration-500 ease-out ${isVisible
