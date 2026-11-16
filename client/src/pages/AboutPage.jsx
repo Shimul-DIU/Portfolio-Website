@@ -36,7 +36,7 @@ const AboutPage = () => {
         {/* Left side image - hidden on small devices, visible from md up. Stretches to match right side height */}
         <div className="hidden md:block md:w-2/5 flex-shrink-0">
           <img
-            src="../../public/images/aboutImg.jpg"
+            src="/images/aboutImg.jpg"
             alt="Md. Shimul"
             className="w-full h-full object-cover rounded-xl"
           />
